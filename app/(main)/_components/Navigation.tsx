@@ -4,6 +4,8 @@ import {
   ChevronsLeft,
   MenuIcon,
   PlusCircle,
+  Search,
+  Settings,
 } from "lucide-react";
 import { usePathname } from "next/navigation";
 import React, { ElementRef, useEffect, useRef, useState } from "react";
@@ -126,6 +128,8 @@ const Navigation = () => {
         </div>
         <div>
           <UserItem />
+          <Item isSearch onClick={() => {}} label="Search" icon={Search} />
+          <Item onClick={() => {}} label="Settings" icon={Settings} />
           <Item
             onClick={handleCreateNotion}
             label="New page"
