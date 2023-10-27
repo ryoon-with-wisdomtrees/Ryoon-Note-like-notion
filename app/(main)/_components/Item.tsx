@@ -30,6 +30,14 @@ const Item = ({
   onExpand,
   expanded,
 }: ItemProps) => {
+  // 도큐먼트 클릭시 접힘=>열림 기능 정의
+  const handleExpand = (
+    event: React.MouseEvent<HTMLDivElement, MouseEvent>
+  ) => {
+    // MouseEvent이벤트: HTMLDivElement로부터나오고 MouseEvent Inside에있는
+    event.stopPropagation();
+    onExpand?.(); // 옵셔널이니까 옵셔널체이닝연산자
+  };
   const ChevronIcon = expanded ? ChevronDown : ChevronRight;
   return (
     <div
@@ -45,7 +53,7 @@ const Item = ({
         <div
           role="button"
           className="h-full rounded-sm hover:bg-neutral-300 dark:bg-neutral-600 mr-1 "
-          onClick={() => {}}
+          onClick={handleExpand}
         >
           <ChevronIcon className="h-4 w-4 shrink-0 text-muted-foreground/50" />
         </div>
