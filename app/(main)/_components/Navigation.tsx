@@ -3,6 +3,7 @@ import {
   ChevronLeftIcon,
   ChevronsLeft,
   MenuIcon,
+  Plus,
   PlusCircle,
   Search,
   Settings,
@@ -142,6 +143,7 @@ const Navigation = () => {
             <p key={doc._id}>{doc.title}</p>
           ))} */}
           <DocumentList />
+          <Item onClick={handleCreateNotion} icon={Plus} label="Add a page" />
         </div>
         <div
           onMouseDown={handleMouseDown}
