@@ -6,6 +6,30 @@ import { Doc, Id } from "./_generated/dataModel";
 // and optionally return a response to the client application.
 //CRUD 정의하는 파일. 도큐먼트 스키마에 대하여. 이아이가 convex서버에서의 api
 
+export const getSidebar = query({
+  args: {
+    parentDocument: v.optional(v.id("documents")),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      throw new Error("Not authenticated");
+    }
+
+    const userId = identity.subject;
+    const documents = await ctx.db
+      .query("documents")
+      .withIndex("by_user_parent", (query) =>
+        query.eq("userId", userId).eq("parentDocument", args.parentDocument)
+      )
+      .filter((query) => query.eq(query.field("isArchived"), false)) //삭제된 도큐먼트는 제외&아카이브된 것만
+      .order("desc")
+      .collect();
+
+    return documents;
+  },
+});
+
 export const getNote = query({
   handler: async (ctx) => {
     const identity = await ctx.auth.getUserIdentity(); //convex서버에서 제공하는 함수

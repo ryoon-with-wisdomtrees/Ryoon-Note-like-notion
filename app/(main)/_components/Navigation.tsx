@@ -15,11 +15,12 @@ import { useMutation, useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import Item from "./Item";
 import { toast } from "sonner";
+import DocumentList from "./DocumentList";
 
 const Navigation = () => {
   const pathname = usePathname();
   const isMobile = useMediaQuery("(max-width: 768px");
-  const documents = useQuery(api.documents.getNote); //realtime으로 갖고옴. watching all of the changes
+  // const documents = useQuery(api.documents.getNote); //realtime으로 갖고옴. watching all of the changes
   const create = useMutation(api.documents.create);
   const isResizingRef = useRef(false);
   const sidebarRef = useRef<ElementRef<"aside">>(null);
@@ -137,9 +138,10 @@ const Navigation = () => {
           />
         </div>
         <div className="mt-4">
-          {documents?.map((doc) => (
+          {/* {documents?.map((doc) => (
             <p key={doc._id}>{doc.title}</p>
-          ))}
+          ))} */}
+          <DocumentList />
         </div>
         <div
           onMouseDown={handleMouseDown}
