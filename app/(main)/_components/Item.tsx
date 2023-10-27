@@ -98,7 +98,7 @@ const Item = ({
   const ChevronIcon = expanded ? ChevronDown : ChevronRight;
   return (
     <div
-      // onClick={onClick}
+      onClick={onClick}
       role="button"
       style={{ paddingLeft: level ? `${level * 12 + 12}px` : "12px" }} //how deep of nested child it is of a specific documents. push to the left
       className={cn(

@@ -6,6 +6,9 @@ import { Doc, Id } from "./_generated/dataModel";
 // and optionally return a response to the client application.
 //CRUD 정의하는 파일. 도큐먼트 스키마에 대하여. 이아이가 convex서버에서의 api
 
+//query => get
+//mutaton => cud 즉 create, update, delete
+
 //삭제
 export const archive = mutation({
   args: { id: v.id("documents") },
@@ -129,6 +132,135 @@ export const create = mutation({
       isArchived: false,
       isPublished: false,
     });
+    return document;
+  },
+});
+
+//삭제된 도큐먼트들만 가져온다.
+export const getTrash = query({
+  handler: async (ctx) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      throw new Error("Not authenticated.");
+    }
+
+    const userId = identity.subject;
+    const documents = await ctx.db
+      .query("documents")
+      .withIndex("by_user", (query) => query.eq("userId", userId))
+      .filter((query) => query.eq(query.field("isArchived"), true)) //eq L===R인것의 반환
+      .order("desc")
+      .collect(); //Execute the query and return all of the results as an array.
+
+    /** withIndex===================
+     * Query by reading documents from an index on this table.
+     * This query's cost is relative to the number of documents
+     * that match the index range expression.
+     * Results will be returned in index order.
+     * learn about indexes, see Indexes.
+     * @param indexName — The name of the index to query.
+     * @param indexRange
+     * An optional index range constructed with the supplied IndexRangeBuilder.
+     * An index range is a description of which documents Convex should consider
+     *  when running the query. If no index range is present, the query will consider
+     * all documents in the index.
+     */
+    return documents;
+  },
+});
+
+//mutation =>This function will be allowed to modify your Convex database and will be accessible from the client
+//삭제한거 restore
+export const restore = mutation({
+  args: { id: v.id("documents") },
+  handler: async (ctx, args) => {
+    //await을쓰기위하여.
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      throw new Error("Not authenticated.");
+    }
+
+    const userId = identity.subject;
+    const existingDoc = await ctx.db.get(args.id);
+    if (!existingDoc) {
+      throw new Error("Not found.");
+    }
+
+    if (existingDoc.userId !== userId) {
+      throw new Error("Unauthorized");
+    }
+
+    const recursiveRestore = async (documentId: Id<"documents">) => {
+      const children = await ctx.db
+        .query("documents")
+        .withIndex("by_user_parent", (query) =>
+          query.eq("userId", userId).eq("parentDocument", documentId)
+        )
+        .collect();
+
+      for (const child of children) {
+        await ctx.db.patch(child._id, {
+          isArchived: false,
+        });
+        await recursiveRestore(child._id);
+      }
+    };
+
+    //Partial =Make all properties in T optional
+    //options object
+    // Doc<TableName extends "documents">
+    const options: Partial<Doc<"documents">> = {
+      isArchived: false,
+    };
+    if (existingDoc.parentDocument) {
+      const parent = await ctx.db.get(existingDoc.parentDocument);
+      if (parent?.isArchived) {
+        options.parentDocument == undefined;
+      }
+    }
+
+    /**
+     * patch<"documents">(id: Id<"documents">, value: Partial<{
+      _id: Id<"documents">;
+     _creationTime: number;
+      parentDocument?: Id<"documents"> | undefined;
+      content?: string | undefined;
+      coverImage?: string | undefined;
+      ... 4 more ...;
+      isPublished: boolean;}>) **/
+    /**
+     * @param id — The values.GenericId of the document to patch.
+     * @param value
+     * The partial GenericDocument to merge into the specified document.
+     * If this new value specifies system fields like _id, they must match
+     * the document's existing field values. */
+
+    const document = await ctx.db.patch(args.id, options);
+    recursiveRestore(args.id);
+    return document;
+  },
+});
+
+export const remove = mutation({
+  args: { id: v.id("documents") },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity(); //ctx에서의 펑션 다 await
+    if (!identity) {
+      throw new Error("Not authenticated.");
+    }
+    const userId = identity.subject;
+
+    const existingDoc = await ctx.db.get(args.id);
+    if (!existingDoc) {
+      throw new Error("Not Found.");
+    }
+
+    if (existingDoc.userId !== userId) {
+      throw new Error("Unauthorized");
+    }
+
+    const document = await ctx.db.delete(args.id);
+
     return document;
   },
 });
