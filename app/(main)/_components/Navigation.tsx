@@ -1,22 +1,28 @@
+import { api } from "@/convex/_generated/api";
 import { cn } from "@/lib/utils";
+import { useMutation } from "convex/react";
 import {
-  ChevronLeftIcon,
   ChevronsLeft,
   MenuIcon,
   Plus,
   PlusCircle,
   Search,
   Settings,
+  Trash,
 } from "lucide-react";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { usePathname } from "next/navigation";
 import React, { ElementRef, useEffect, useRef, useState } from "react";
-import { useMediaQuery } from "usehooks-ts";
-import UserItem from "./UserItem";
-import { useMutation, useQuery } from "convex/react";
-import { api } from "@/convex/_generated/api";
-import Item from "./Item";
 import { toast } from "sonner";
+import { useMediaQuery } from "usehooks-ts";
 import DocumentList from "./DocumentList";
+import Item from "./Item";
+import UserItem from "./UserItem";
+import { Button } from "@/components/ui/button";
 
 const Navigation = () => {
   const pathname = usePathname();
@@ -132,6 +138,7 @@ const Navigation = () => {
           <UserItem />
           <Item isSearch onClick={() => {}} label="Search" icon={Search} />
           <Item onClick={() => {}} label="Settings" icon={Settings} />
+
           <Item
             onClick={handleCreateNotion}
             label="New page"
@@ -144,6 +151,17 @@ const Navigation = () => {
           ))} */}
           <DocumentList />
           <Item onClick={handleCreateNotion} icon={Plus} label="Add a page" />
+          <Popover>
+            <PopoverTrigger className="w-full mt-4">
+              <Item label="Trash" icon={Trash} />
+            </PopoverTrigger>
+            <PopoverContent
+              side={isMobile ? "bottom" : "right"}
+              className="p-0 w-72"
+            >
+              <p>Trash Box</p>
+            </PopoverContent>
+          </Popover>
         </div>
         <div
           onMouseDown={handleMouseDown}
