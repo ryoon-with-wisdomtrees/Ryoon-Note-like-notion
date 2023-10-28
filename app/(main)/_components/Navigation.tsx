@@ -15,6 +15,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { useSearch } from "@/hooks/use-search";
 import { usePathname } from "next/navigation";
 import React, { ElementRef, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
@@ -26,6 +27,7 @@ import { Button } from "@/components/ui/button";
 import TrashBox from "./TrashBox";
 
 const Navigation = () => {
+  const search = useSearch();
   const pathname = usePathname();
   const isMobile = useMediaQuery("(max-width: 768px");
   // const documents = useQuery(api.documents.getNote); //realtime으로 갖고옴. watching all of the changes
@@ -137,7 +139,7 @@ const Navigation = () => {
         </div>
         <div>
           <UserItem />
-          <Item isSearch onClick={() => {}} label="Search" icon={Search} />
+          <Item isSearch onClick={search.onOpen} label="Search" icon={Search} />
           <Item onClick={() => {}} label="Settings" icon={Settings} />
 
           <Item
