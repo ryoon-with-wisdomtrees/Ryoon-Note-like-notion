@@ -16,6 +16,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { useSearch } from "@/hooks/use-search";
+import { useSetting } from "@/hooks/use-settings";
 import { usePathname } from "next/navigation";
 import React, { ElementRef, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
@@ -27,6 +28,7 @@ import { Button } from "@/components/ui/button";
 import TrashBox from "./TrashBox";
 
 const Navigation = () => {
+  const settings = useSetting();
   const search = useSearch();
   const pathname = usePathname();
   const isMobile = useMediaQuery("(max-width: 768px");
@@ -140,7 +142,7 @@ const Navigation = () => {
         <div>
           <UserItem />
           <Item isSearch onClick={search.onOpen} label="Search" icon={Search} />
-          <Item onClick={() => {}} label="Settings" icon={Settings} />
+          <Item onClick={settings.onOpen} label="Settings" icon={Settings} />
 
           <Item
             onClick={handleCreateNotion}
