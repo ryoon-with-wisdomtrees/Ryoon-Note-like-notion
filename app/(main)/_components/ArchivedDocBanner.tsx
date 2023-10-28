@@ -9,10 +9,10 @@ import { toast } from "sonner";
 import { ConfirmModal } from "@/components/modals/confirmModal";
 // import { useRouter } from "next/router";
 
-type BannerProps = {
+type ArchivedDocBannerProps = {
   documentId: Id<"documents">;
 };
-const Banner = ({ documentId }: BannerProps) => {
+const ArchivedDocBanner = ({ documentId }: ArchivedDocBannerProps) => {
   const router = useRouter();
   const removeDoc = useMutation(api.documents.remove);
   const restoreDoc = useMutation(api.documents.restore);
@@ -61,4 +61,4 @@ const Banner = ({ documentId }: BannerProps) => {
   );
 };
 
-export default Banner;
+export default ArchivedDocBanner;
