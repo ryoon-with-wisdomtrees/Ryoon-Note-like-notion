@@ -76,7 +76,7 @@ const DocTitle = ({ initialData }: DocTitleProps) => {
 export default DocTitle;
 
 const DocTitleSkeleton = () => {
-  return <Skeleton className="h-9 w-16 rounded-md" />;
+  return <Skeleton className="h-9 w-20 rounded-md" />;
 };
 // 로딩시에 나올 스켈레톤 정의
 DocTitle.Skeleton = DocTitleSkeleton;
