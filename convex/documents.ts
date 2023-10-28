@@ -6,8 +6,8 @@ import { Doc, Id } from "./_generated/dataModel";
 // and optionally return a response to the client application.
 //CRUD 정의하는 파일. 도큐먼트 스키마에 대하여. 이아이가 convex서버에서의 api
 
-//query => get
-//mutaton => cud 즉 create, update, delete
+//query => get ==>db.get 또는 db.query
+//mutaton => cud 즉 create, update, delete ==> db.insert && db.patch(update)사용하려면 mutation
 
 //삭제
 export const archive = mutation({
@@ -109,6 +109,7 @@ export const getNote = query({
     return documents;
   },
 });
+
 // 노션작성 로직
 export const create = mutation({
   args: {
@@ -279,5 +280,58 @@ export const getSearch = query({
       .order("desc")
       .collect();
     return documents;
+  },
+});
+
+export const getDocumentById = query({
+  args: { documentId: v.id("documents") },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+
+    const document = await ctx.db.get(args.documentId);
+
+    if (!document) throw new Error("존재하지 않는 문서입니다.");
+
+    if (document.isPublished && !document.isArchived) return document;
+
+    if (!identity) throw new Error("인증되지 않은 사용자입니다.");
+    const userId = identity.subject;
+    if (document.userId !== userId) {
+      throw new Error("허가되지않은 사용자입니다.");
+    }
+    return document;
+  },
+});
+
+export const updateDocument = mutation({
+  args: {
+    id: v.id("documents"),
+    title: v.optional(v.string()),
+    content: v.optional(v.string()),
+    coverImage: v.optional(v.string()),
+    icon: v.optional(v.string()),
+    isPublished: v.optional(v.boolean()),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) throw new Error("인증되지 않은 사용자입니다.");
+
+    const userId = identity.subject;
+
+    const { id, ...rest } = args; // undestructuring~
+    //id빼고 다른거를 다 업데이트 가능하게하려구
+
+    const existingDoc = await ctx.db.get(args.id);
+
+    if (!existingDoc) throw new Error("존재하지않는 문서입니다.");
+
+    if (existingDoc.userId !== userId)
+      throw new Error("허가되지않은 사용자입니다.");
+
+    const document = await ctx.db.patch(args.id, {
+      ...rest,
+    });
+
+    return document;
   },
 });

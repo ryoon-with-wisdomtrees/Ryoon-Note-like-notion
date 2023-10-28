@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/popover";
 import { useSearch } from "@/hooks/use-search";
 import { useSetting } from "@/hooks/use-settings";
-import { usePathname } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
 import React, { ElementRef, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { useMediaQuery } from "usehooks-ts";
@@ -26,10 +26,13 @@ import Item from "./Item";
 import UserItem from "./UserItem";
 import { Button } from "@/components/ui/button";
 import TrashBox from "./TrashBox";
+import NavBar from "./DocNavBar";
+import DocNavBar from "./DocNavBar";
 
 const Navigation = () => {
   const settings = useSetting();
   const search = useSearch();
+  const params = useParams();
   const pathname = usePathname();
   const isMobile = useMediaQuery("(max-width: 768px");
   // const documents = useQuery(api.documents.getNote); //realtime으로 갖고옴. watching all of the changes
@@ -120,7 +123,10 @@ const Navigation = () => {
     });
   };
   return (
-    <>
+    <div className="flex flex-row">
+      {/** aside=> 왼쪽 네비
+       *   div => 도큐먼트1개 페이지
+       */}
       <aside
         ref={sidebarRef}
         className={cn(
@@ -182,17 +188,21 @@ const Navigation = () => {
           isMobile && "left-0 w-full"
         )}
       >
-        <nav className="bg-transparent px-3 py-2 w-full">
-          {isCollapsed && (
-            <MenuIcon
-              role="button"
-              onClick={resetWidth}
-              className="h-6 w-6 text-muted-foreground"
-            />
-          )}
-        </nav>
+        {!!params.documentId ? (
+          <DocNavBar isCollapsed={isCollapsed} onResetWidth={resetWidth} />
+        ) : (
+          <nav className="bg-transparent px-3 py-2 w-full">
+            {isCollapsed && (
+              <MenuIcon
+                role="button"
+                onClick={resetWidth}
+                className="h-6 w-6 text-muted-foreground"
+              />
+            )}
+          </nav>
+        )}
       </div>
-    </>
+    </div>
   );
 };
 
