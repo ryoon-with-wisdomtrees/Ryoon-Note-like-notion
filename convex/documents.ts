@@ -359,3 +359,27 @@ export const removeIconDoc = mutation({
     return document;
   },
 });
+
+export const removeCoverImg = mutation({
+  args: { id: v.id("documents") },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+
+    if (!identity) {
+      throw new Error("Unauthenticated");
+    }
+    const userId = identity.subject;
+
+    const existingDoc = await ctx.db.get(args.id);
+    if (!existingDoc) throw new Error("Not Found");
+
+    if (existingDoc.userId !== userId)
+      throw new Error("허가되지않은 사용자입니다.");
+
+    const document = await ctx.db.patch(args.id, {
+      coverImage: undefined,
+    });
+
+    return document;
+  },
+});
