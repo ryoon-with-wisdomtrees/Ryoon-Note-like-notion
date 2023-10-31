@@ -19,7 +19,7 @@ const DocToolbar = ({ initialData, preview }: DocToolbarProps) => {
   const [isEditing, setIsEditing] = useState(false);
   const [value, setValue] = useState(initialData.title);
   const updateDocApi = useMutation(api.documents.updateDocument);
-
+  const removeIconDocApi = useMutation(api.documents.removeIconDoc);
   const enableInput = () => {
     if (preview) return;
     setIsEditing(true);
@@ -45,16 +45,28 @@ const DocToolbar = ({ initialData, preview }: DocToolbarProps) => {
       disableInput();
     }
   };
+  const onIconSelect = (icon: string) => {
+    updateDocApi({
+      id: initialData._id,
+      icon,
+    });
+  };
+  const onRemoveIcon = () => {
+    removeIconDocApi({ id: initialData._id });
+  };
   return (
     <div className="pl-[54px] grout relative">
       {!!initialData.icon && !preview && (
         <div className="flex items-center gap-x-2 group/icon pt-6">
-          <IconPicker onChange={() => {}}>
+          <IconPicker onChange={onIconSelect}>
             <p className="text-6xl hover:opacity-75 transition">
               {initialData.icon}
             </p>
           </IconPicker>
-          <Button className="rounded-full opacity-0 group-hover/icon:opacity-100 transition text-muted-foreground text-xs">
+          <Button
+            onClick={onRemoveIcon}
+            className="rounded-full opacity-0 group-hover/icon:opacity-100 transition text-muted-foreground text-xs"
+          >
             <X className="h-4 w-4" />
           </Button>
         </div>
@@ -64,7 +76,7 @@ const DocToolbar = ({ initialData, preview }: DocToolbarProps) => {
       )}
       <div className="opacity-100 group-hover:opacity-100 flex items-center gap-x-1 py-4">
         {!initialData.icon && !preview && (
-          <IconPicker onChange={() => {}}>
+          <IconPicker onChange={onIconSelect}>
             <Button
               className="text-muted-foreground text-xs"
               variant={"outline"}
