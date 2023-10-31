@@ -34,10 +34,29 @@ export const CoverImageModal = () => {
     if (file) {
       setIsSubmitting(true);
       setFile(file);
-      const result = await edgestore.publicFiles.upload({ file });
+      // let res;
+      const res = await edgestore.publicFiles.upload({
+        file,
+        options: {
+          replaceTargetUrl: coverImage.url,
+        },
+        // ...
+      });
+      // if (coverImage.url) {
+      //   //있으면 replace
+      //   res = await edgestore.publicFiles.upload({
+      //     file,
+      //     options: {
+      //       replaceTargetUrl: coverImage.url,
+      //     },
+      //   });
+      // } else {
+      //   res = await edgestore.publicFiles.upload({ file }); //edgestore에 저장하고
+      // }
+
       await updateDocApi({
         id: params.documentId as Id<"documents">,
-        coverImage: result.url, // (await result).url
+        coverImage: res.url, // (await result).url //convex에 저장.
       });
       onClose();
     }
