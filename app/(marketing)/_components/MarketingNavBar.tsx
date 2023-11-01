@@ -31,14 +31,14 @@ const MarketingNavBar = () => {
               </Button>
             </SignInButton>
             <SignInButton mode="modal">
-              <Button size="sm">Get Rotion Free</Button>
+              <Button size="sm">Get ryoon-note Free</Button>
             </SignInButton>
           </>
         )}
         {isAuthenticated && !isLoading && (
           <>
             <Button variant="ghost" size="sm" asChild>
-              <Link href="/documents">Enter Rotion</Link>
+              <Link href="/documents">Enter ryoon-note</Link>
             </Button>
             <UserButton afterSignOutUrl="/" />
           </>

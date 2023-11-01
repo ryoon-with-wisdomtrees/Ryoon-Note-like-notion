@@ -42,7 +42,7 @@ const DocumentsPage = () => {
         className="hidden dark:block"
       />
       <h2 className="text-lg font-medium">
-        Welcome to {user?.firstName}&apos;s Rotion
+        Welcome to {user?.firstName}&apos;s ryoon-note
       </h2>
       <Button onClick={onCreate}>
         <PlusCircleIcon className="h-4 w-4 mr-2" />

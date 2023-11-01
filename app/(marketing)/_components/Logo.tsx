@@ -24,7 +24,7 @@ const Logo = () => {
         height="40"
         className="dark:block"
       /> */}
-      <p className={cn("font-semibold", font.className)}>Rotion</p>
+      <p className={cn("font-semibold", font.className)}>ryoon-note</p>
     </div>
   );
 };

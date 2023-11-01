@@ -9,7 +9,7 @@ import { EdgeStoreProvider } from "@/lib/edgestore";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Rotion",
+  title: "ryoon-note",
   description: "The Notion inspired app",
   icons: {
     icon: [
@@ -41,7 +41,7 @@ export default function RootLayout({
               attribute="class"
               defaultTheme="system"
               disableTransitionOnChange
-              storageKey="rotion-theme"
+              storageKey="ryoon-note-theme"
             >
               <Toaster position="bottom-center" />
               <ModalProvider />
