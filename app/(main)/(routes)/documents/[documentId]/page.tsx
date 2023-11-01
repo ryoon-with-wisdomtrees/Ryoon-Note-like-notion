@@ -1,11 +1,13 @@
 "use client";
+import { useMemo } from "react";
 import { useMutation, useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 import DocToolbar from "@/app/(main)/_components/DocToolbar";
 import DocCover from "@/components/DocCover";
 import { Skeleton } from "@/components/ui/skeleton";
-import DocEditor from "@/app/(main)/_components/DocEditor";
+import dynamic from "next/dynamic";
+// import DocEditor from "@/app/(main)/_components/DocEditor";
 
 interface DocumentIdPageProps {
   params: {
@@ -14,6 +16,13 @@ interface DocumentIdPageProps {
 }
 //다이나믹폴더 param넘어옴
 const DocumentIdPage = ({ params }: DocumentIdPageProps) => {
+  const DocEditor = useMemo(
+    () =>
+      dynamic(() => import("@/app/(main)/_components/DocEditor"), {
+        ssr: false,
+      }),
+    []
+  );
   const document = useQuery(api.documents.getDocumentById, {
     documentId: params.documentId,
   });
