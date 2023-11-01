@@ -8,6 +8,7 @@ import { useParams } from "next/navigation";
 import DocTitle from "./DocTitle";
 import DocMenu from "./DocMenu";
 import ArchivedDocBanner from "./ArchivedDocBanner";
+import Publish from "./Publish";
 interface DocNavBarProps {
   isCollapsed: boolean;
   onResetWidth: () => void;
@@ -45,6 +46,7 @@ const DocNavBar = ({ isCollapsed, onResetWidth }: DocNavBarProps) => {
         <div className="flex items-center justify-between w-full">
           <DocTitle initialData={document} />
           <div className="flex items-center gap-x-2 ">
+            <Publish initialData={document} />
             <DocMenu documentId={document._id} />
           </div>
         </div>
