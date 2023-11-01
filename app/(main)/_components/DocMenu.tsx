@@ -1,22 +1,21 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-import { useUser } from "@clerk/clerk-react";
-import { Doc, Id } from "@/convex/_generated/dataModel";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useMutation } from "convex/react";
-import { api } from "@/convex/_generated/api";
-import { toast } from "sonner";
-import { Button } from "@/components/ui/button";
-import { MoreHorizontal, Trash } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
+import { api } from "@/convex/_generated/api";
+import { Id } from "@/convex/_generated/dataModel";
+import { useUser } from "@clerk/clerk-react";
+import { useMutation } from "convex/react";
+import { MoreHorizontal, Trash } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 interface DocTitleProps {
   documentId: Id<"documents">;

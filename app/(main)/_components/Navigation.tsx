@@ -1,4 +1,11 @@
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { api } from "@/convex/_generated/api";
+import { useSearch } from "@/hooks/use-search";
+import { useSetting } from "@/hooks/use-settings";
 import { cn } from "@/lib/utils";
 import { useMutation } from "convex/react";
 import {
@@ -10,24 +17,15 @@ import {
   Settings,
   Trash,
 } from "lucide-react";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { useSearch } from "@/hooks/use-search";
-import { useSetting } from "@/hooks/use-settings";
 import { useParams, usePathname, useRouter } from "next/navigation";
 import React, { ElementRef, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { useMediaQuery } from "usehooks-ts";
+import DocNavBar from "./DocNavBar";
 import DocumentList from "./DocumentList";
 import Item from "./Item";
-import UserItem from "./UserItem";
-import { Button } from "@/components/ui/button";
 import TrashBox from "./TrashBox";
-import NavBar from "./DocNavBar";
-import DocNavBar from "./DocNavBar";
+import UserItem from "./UserItem";
 
 const Navigation = () => {
   const router = useRouter();
