@@ -3,7 +3,7 @@
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { ImageIcon, X } from "lucide-react";
+import { ImageIcon, SettingsIcon, X } from "lucide-react";
 import { useCoverImage } from "@/hooks/use-cover-image";
 import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
@@ -11,12 +11,14 @@ import { useParams } from "next/navigation";
 import { Id } from "@/convex/_generated/dataModel";
 import { useEdgeStore } from "@/lib/edgestore";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useSetting } from "@/hooks/use-settings";
 
 interface Props {
   imgUrl?: string;
   preview?: boolean;
 }
 const DocCover = ({ imgUrl, preview }: Props) => {
+  const settings = useSetting();
   const params = useParams();
   const coverImge = useCoverImage();
   const { edgestore } = useEdgeStore();
@@ -61,6 +63,19 @@ const DocCover = ({ imgUrl, preview }: Props) => {
           >
             <X className="h-4 w-4 mr-2" />
             Remove
+          </Button>
+        </div>
+      )}
+      {imgUrl && preview && (
+        <div className="opacity-0 group-hover:opacity-100 absolute bottom-5 right-5 flex items-center gap-x-2 ">
+          <Button
+            onClick={settings.onOpen}
+            className="text-muted-foreground text-xs"
+            variant={"outline"}
+            size={"sm"}
+          >
+            <SettingsIcon className="h-4 w-4 mr-2" />
+            Change the Theme
           </Button>
         </div>
       )}
