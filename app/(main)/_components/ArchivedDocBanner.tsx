@@ -6,7 +6,7 @@ import { Id } from "@/convex/_generated/dataModel";
 import { useMutation } from "convex/react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { ConfirmModal } from "@/components/modals/confirmModal";
+import { ConfirmModal } from "@/components/modals/ConfirmModal";
 // import { useRouter } from "next/router";
 
 type ArchivedDocBannerProps = {
