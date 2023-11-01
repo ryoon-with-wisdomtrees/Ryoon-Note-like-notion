@@ -5,6 +5,7 @@ import { Id } from "@/convex/_generated/dataModel";
 import DocToolbar from "@/app/(main)/_components/DocToolbar";
 import DocCover from "@/components/DocCover";
 import { Skeleton } from "@/components/ui/skeleton";
+import DocEditor from "@/app/(main)/_components/DocEditor";
 
 interface DocumentIdPageProps {
   params: {
@@ -43,6 +44,7 @@ const DocumentIdPage = ({ params }: DocumentIdPageProps) => {
       <DocCover imgUrl={document.coverImage || ""} />
       <div className="md:max-w-3xl lg:max-w-4xl mx-auto">
         <DocToolbar initialData={document} />
+        <DocEditor onChange={() => {}} initialContent={document.content} />
       </div>
     </div>
   );
