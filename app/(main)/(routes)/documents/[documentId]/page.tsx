@@ -1,5 +1,5 @@
 "use client";
-import { useQuery } from "convex/react";
+import { useMutation, useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 import DocToolbar from "@/app/(main)/_components/DocToolbar";
@@ -18,10 +18,19 @@ const DocumentIdPage = ({ params }: DocumentIdPageProps) => {
     documentId: params.documentId,
   });
 
+  const updateDocApi = useMutation(api.documents.updateDocument);
+  const onChange = (content: string) => {
+    //에디터에서 인자값으로 string화돼서 오는 컨텐트 업데이트
+    console.log("content:::::::::::::::\n", content);
+    updateDocApi({
+      id: params.documentId,
+      content,
+    });
+  };
+
   if (document === undefined) {
     return (
       <div>
-        {" "}
         <DocCover.Skeleton />
         <div className="md:max-w-3xl lg:max-w-4xl mx-auto mt-10">
           <div className="space-y-4 pl-8 pt-4">
@@ -44,7 +53,7 @@ const DocumentIdPage = ({ params }: DocumentIdPageProps) => {
       <DocCover imgUrl={document.coverImage || ""} />
       <div className="md:max-w-3xl lg:max-w-4xl mx-auto">
         <DocToolbar initialData={document} />
-        <DocEditor onChange={() => {}} initialContent={document.content} />
+        <DocEditor onChange={onChange} initialContent={document.content} />
       </div>
     </div>
   );
