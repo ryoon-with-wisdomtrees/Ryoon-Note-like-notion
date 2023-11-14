@@ -2,10 +2,10 @@
 (Next.js 13 Notion like app)
 - A end-to-end fullstack notion clone, all with proper notion-style editor, cover images, nested documents, publishing documents to public, real-time database and more
 
-![main](/notion-clone/public/main_screenshot.png)
-![screenshot1](/notion-clone/public/note2__screenshot.png)
-![screenshot2](/notion-clone/public/note1__screenshot.png)
-![screenshot3](/notion-clone/public/note3__screenshot.png)
+![main](/public/main_screenshot.png)
+![screenshot1](/public/note2__screenshot.png)
+![screenshot2](/public/note1__screenshot.png)
+![screenshot3](/public/note3__screenshot.png)
 
 Ryoon-note로 글을 작성하고 Publish해보세요. 저도 제가 작성한 글을 [이 링크](https://seryoon-note-app.vercel.app/preview/3n251s3kyh03ff9h3sdr8y749kdy2dg)에 남겨둡니다.📝
 
