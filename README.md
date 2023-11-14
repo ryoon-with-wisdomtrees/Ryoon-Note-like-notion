@@ -1,13 +1,16 @@
 # [Ryoon-note(notion-like app)](https://ryoon-with-nomnom-googlemap.vercel.app/)
 (Next.js 13 Notion like app)
-- A end-to-end fullstack notion clone, all with proper notion-style editor, cover images, nested documents, publishing documents to public, real-time database and more
+A end-to-end fullstack notion clone, all with proper notion-style editor, cover images, nested documents, publishing documents to public, real-time database and more
+
+Ryoon-note로 글을 작성하고 Publish해보세요.
+저도 제가 작성한 글을 [이 링크](https://seryoon-note-app.vercel.app/preview/3n251s3kyh03ff9h3sdr8y749kdy2dg)에 남겨둡니다.📝
 
 ![main](/public/main_screenshot.png)
 ![screenshot1](/public/note2_screenshot.png)
 ![screenshot2](/public/note1_screenshot.png)
 ![screenshot3](/public/note3_screenshot.png)
 
-Ryoon-note로 글을 작성하고 Publish해보세요. 저도 제가 작성한 글을 [이 링크](https://seryoon-note-app.vercel.app/preview/3n251s3kyh03ff9h3sdr8y749kdy2dg)에 남겨둡니다.📝
+
 
 ## 제작과정
 
@@ -39,7 +42,11 @@ Landing page 🛬
 Cover image of each document 🖼️
 Recover deleted files 🔄📄
 
-개인적으로는 노션이 제공하는 커버이미지업로드, emoji-picker-react를 사용한 아이콘지정, 페이지의 제목이 바뀜과 동시에 목록에서의 제목도 바뀌게 하는 것, Publish&Share기능, 말그대로 Infinite 자식 도큐먼트, 이제는 대부분의 앱에서 제공중인 다크모드와 서치기능등이 기억나고... 진짜 노션같은 늘어나고 접히며 줄어드는 leftSideBar를 만드는 과정도 흥미로웠습니다. 또 Convex로 하는 CRUD작업이 너무 재밌었어요. 뭐 기본적인 것만 했으니 심화로 들어가진 않았지만 역시나 백엔드했던 가닥(?)이 조금 있다보니 프론트엔드로 넘어와서 새로운 기술들을 접하고 비즈니스와 모델레이에 대한 작업을 할 때마다 문법이 익숙하지 않아서 그렇지 작업자체는 참 재밌습니다. 또 이번에 [BlockNote](https://www.blocknotejs.org/) 라이브러리는 처음알게 됐는데(처음알게된 라이브러리가 참 많네요. 클론코딩할 때 제가 모르던 이런 새로운 기술들을 접할 수 있어서 또 재밌어서 더 하게 되는 거 같아요)참 감탄하며 작업했습니다. 덕분에 조상격인 Prosemirror와 TipTap도 알게되고... 올해에 [LiveBlocks](https://liveblocks.io/)를 처음 접하고 사내 프로젝트에서 테스트해 볼때도 신선한 충격을 받았었는데 이번에도 그런 좋은 충격을 받았습니다. 새삼 오픈소스 라이브러리 작업자들에 언제나 그렇지만 또 감사하고 경이로움을 느낍니다. 또 저도언젠가는 그런 Receiver만이 아닌 창작자이자 Giver가 되길 바라기도 하구요.  
+개인적으로는 노션이 제공하는 커버이미지업로드, emoji-picker-react를 사용한 아이콘지정, 페이지의 제목이 바뀜과 동시에 목록에서의 제목도 바뀌게 하는 것, Publish&Share기능, 말그대로 Infinite 자식 도큐먼트, 이제는 대부분의 앱에서 제공중인 다크모드와 서치기능등이 기억나고... 진짜 노션같은 늘어나고 접히며 줄어드는 leftSideBar를 만드는 과정도 흥미로웠습니다. 
+
+또 Convex로 하는 CRUD작업이 너무 재밌었어요. 뭐 기본적인 것만 했으니 심화로 들어가진 않았지만 역시나 백엔드했던 가닥(?)이 조금 있다보니 프론트엔드로 넘어와서 새로운 기술들을 접하고 비즈니스와 모델레이에 대한 작업을 할 때마다 문법이 익숙하지 않아서 그렇지 작업자체는 참 재밌습니다.
+
+ 또 이번에 [BlockNote](https://www.blocknotejs.org/) 라이브러리는 처음알게 됐는데(처음알게된 라이브러리가 참 많네요. 클론코딩할 때 제가 모르던 이런 새로운 기술들을 접할 수 있어서 또 재밌어서 더 하게 되는 거 같아요)참 감탄하며 작업했습니다. 덕분에 조상격인 Prosemirror와 TipTap도 알게되고... 올해에 [LiveBlocks](https://liveblocks.io/)를 처음 접하고 사내 프로젝트에서 테스트해 볼때도 신선한 충격을 받았었는데 이번에도 그런 좋은 충격을 받았습니다. 새삼 오픈소스 라이브러리 작업자들에 언제나 그렇지만 또 감사하고 경이로움을 느낍니다. 또 저도언젠가는 그런 Receiver만이 아닌 창작자이자 Giver가 되길 바라기도 하구요.  
 
 ## 커스텀해서 사용하고 싶으시다면?
 - .env파일을 작성후 아래의 variable에 대한 값을 지정해주시면 되며, 저의 경우 배포는 vercel을 이용하였습니다.
