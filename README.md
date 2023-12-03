@@ -2,8 +2,8 @@
 
 - A end-to-end fullstack notion clone, all with proper notion-style editor, cover images, nested documents, publishing documents to public, real-time database and more
 
-Ryoon-note로 글을 작성하고 Publish해보세요.
-저도 제가 작성한 글을 <a href="https://seryoon-note-app.vercel.app/preview/3n251s3kyh03ff9h3sdr8y749kdy2dg/" target="_blank">이 링크</a>에 남겨둡니다.📝
+- Ryoon-note로 글을 작성하고 Publish해보세요.
+- 저도 제가 작성한 글을 <a href="https://seryoon-note-app.vercel.app/preview/3n251s3kyh03ff9h3sdr8y749kdy2dg/" target="_blank">이 링크</a>에 남겨둡니다.📝
 
 ![main](/public/main_screenshot.png)
 ![screenshot1](/public/note2_screenshot.png)
